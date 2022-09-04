@@ -101,7 +101,7 @@ func getLocalities(c *gin.Context) {
 
 // Monta resultado da pesquisa em arquivo
 func jsonlResponse(answers []FederativeUnit) error {
-	file, err := os.Create("result.jsonl")
+	file, err := os.Create("treasure.jsonl")
 	if err != nil {
 		return err
 	}
