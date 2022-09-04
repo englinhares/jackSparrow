@@ -21,7 +21,7 @@ go run .
 ```
 O webservice vai subir na porta 9876. 
 Agora basta acessar a URL conforme descrito abaixo indicando no último parametro do path a lista de UFs você deseja a busca de dados. Esta lista deve estar separada por vírgula. Ex: SC,SP,PR. O número máximo de UFs está pré definido em 5.
-<BR>
+<BR><BR>
 Via terminal, executar o GET da URL com curl
 ```
 curl http://localhost:9876/v1/localidades/SC
