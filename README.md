@@ -1,5 +1,5 @@
 # jackSparrow
-Web Crawler para busca de informações de localidades e faixas de CEP dos correios
+Web Crawler para busca de informações de localidades e faixas de CEP das unidades da federação via site dos correios.
 
 # Install
 ## Baixar o código do repositório
