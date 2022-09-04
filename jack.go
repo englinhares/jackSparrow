@@ -10,6 +10,7 @@ import (
 	"os"
 	"strings"
 	"time"
+	"unicode/utf8"
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/chromedp/chromedp"
@@ -36,7 +37,7 @@ type Locality struct {
 func main() {
 	router := localitiesHandler()
 	s := &http.Server{
-		Addr:         ":8080",
+		Addr:         ":9876",
 		Handler:      router,
 		ReadTimeout:  600 * time.Second,
 		WriteTimeout: 600 * time.Second,
@@ -73,7 +74,6 @@ func getLocalities(c *gin.Context) {
 	ctx, cancel = context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
 	for _, value := range options {
-		fmt.Println("Crawler execution for UF: " + value)
 		go func() {
 			value = strings.Trim(value, " ")
 			isValid, err := UFIsValid(value)
@@ -187,7 +187,7 @@ func extractTableData(doc *goquery.Document, Results []Locality, isNextButton bo
 			locality := Locality{}
 			locality.Id = uuid.String()
 			locality.Name = selection.Find("td:nth-child(1)").Text()
-			locality.CEPRange = selection.Find("td:nth-child(2)").Text()
+			locality.CEPRange = trimFirstRune(selection.Find("td:nth-child(2)").Text())
 			//ignora quando campo vir vazio
 			if locality.Name != "" {
 				Results = append(Results, locality)
@@ -195,6 +195,11 @@ func extractTableData(doc *goquery.Document, Results []Locality, isNextButton bo
 		})
 	}
 	return Results, nil
+}
+
+func trimFirstRune(s string) string {
+	_, i := utf8.DecodeRuneInString(s)
+	return s[i:]
 }
 
 // Enquanto houver botão de próxima página, executa ação de click
