@@ -32,7 +32,7 @@ func TestLocalities(t *testing.T) {
 
 	assert.Equal(t, http.StatusOK, res.StatusCode)
 
-	/* GET more than five UFs */
+	//Requisição GET com mais de 5 UFs
 
 	req, err = http.NewRequest(http.MethodGet, server.URL+"/v1/localidades/PB,CE,SP,MT,RJ,PE", nil)
 	assert.NoError(t, err)
